@@ -2,84 +2,93 @@
 @tailwind components;
 @tailwind utilities;
 
+/* =========================
+   RESET Y BASE GLOBAL
+   ========================= */
 
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-*{
-  transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  background-color: #f8fafc;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+  background-color: #1C1B3E; /* Azul oscuro corporativo */
+  color: #FFFFFF;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* =========================
+   TRANSICIONES SUAVES
+   ========================= */
+
+* {
+  box-sizing: border-box;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
+
+/* =========================
+   LINKS
+   ========================= */
+
+a {
+  font-weight: 500;
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #00838F; /* Azul turquesa */
+}
+
+/* =========================
+   TIPOGRAFÍA BASE
+   ========================= */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #FFFFFF;
+  font-weight: 600;
+}
+
+p {
+  color: #AAB7C4; /* Gris azulado */
+  line-height: 1.6;
+}
+
+/* =========================
+   BOTONES (BASE)
+   ========================= */
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
+  border-radius: 0.5rem;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.95rem;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #00838F;
+  color: #FFFFFF;
   cursor: pointer;
-  transition: border-color 0.25s;
 }
+
 button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  background-color: #4DD0E1; /* Cian vibrante */
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
+/* =========================
+   NAVBAR Y DROPDOWNS
+   ========================= */
 
-/* -------------------------- Styles for the NavBar area ------------------------- */
-/* Mejoras para los dropdowns */
+/* Animaciones suaves para dropdowns */
 .dropdown-enter {
   opacity: 0;
   transform: translateY(-10px);
@@ -88,7 +97,7 @@ button:focus-visible {
 .dropdown-enter-active {
   opacity: 1;
   transform: translateY(0);
-  transition: opacity 200ms, transform 200ms;
+  transition: opacity 200ms ease, transform 200ms ease;
 }
 
 .dropdown-exit {
@@ -99,6 +108,36 @@ button:focus-visible {
 .dropdown-exit-active {
   opacity: 0;
   transform: translateY(-10px);
-  transition: opacity 200ms, transform 200ms;
+  transition: opacity 200ms ease, transform 200ms ease;
 }
 
+/* =========================
+   UTILIDADES PERSONALIZADAS
+   ========================= */
+
+/* Overlay oscuro corporativo */
+.bg-overlay {
+  background: rgba(28, 27, 62, 0.75);
+}
+
+/* Texto corporativo */
+.text-primary {
+  color: #FFFFFF;
+}
+
+.text-secondary {
+  color: #AAB7C4;
+}
+
+.text-accent {
+  color: #00838F;
+}
+
+/* =========================
+   VIDEO BACKGROUND FIX
+   ========================= */
+
+video {
+  object-fit: cover;
+  object-position: center;
+}
