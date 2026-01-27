@@ -2,12 +2,13 @@
 import { Routes, Route } from 'react-router-dom';
 import MarIAProject from '../pages/MarIa';
 import PuntoMovilProject from '../pages/PuntoMovil';
+import Home from '../pages/Home';
 
 const AppRoutes = () => {
   return (
 
       <Routes>
-        {/*<Route path="/" element={<Home />} />*/}
+        {<Route path="/" element={<Home />} />}
         {/*<Route path="/servicios" element={<Services />} />*/}
         <Route path="/proyectos/maria" element={<MarIAProject />} />
         <Route path="/proyectos/puntomovil" element={<PuntoMovilProject />} />
