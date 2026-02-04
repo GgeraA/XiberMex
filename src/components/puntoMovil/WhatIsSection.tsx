@@ -21,7 +21,7 @@ const WhatIsSection = () => {
             <div className="space-y-4">
               <p className="text-gray-700 leading-relaxed">
                 Punto Móvil es una aplicación de punto de venta diseñada para celulares, que ofrece 
-                herramientas completas para gestionar cobros y transacciones, con un enfoque más flexible 
+                herramientas completas para gestionar cobros e inventario, con un enfoque más flexible 
                 y adaptado a las necesidades locales.
               </p>
               

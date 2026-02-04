@@ -102,7 +102,7 @@ const HeroSection = () => {
             className="text-lg md:text-xl text-white/70 max-w-3xl mx-auto leading-relaxed mb-10"
           >
             La aplicación de punto de venta diseñada para celulares, con herramientas completas 
-            para gestionar cobros y transacciones de manera flexible y adaptada a las necesidades locales.
+            para gestionar cobros e inventarios en tiempo real, además, está adaptada para las necesidades locales.
           </motion.p>
 
           {/* CTA PRINCIPAL - DEMO */}
@@ -123,15 +123,15 @@ const HeroSection = () => {
               transition={{ type: 'spring', stiffness: 300 }}
               className="px-8 py-4 rounded-full bg-white text-[#2E7D32] font-semibold text-lg tracking-wide shadow-lg hover:shadow-xl"
             >
-              🚀 Probar Demo Ahora
+              Probar Demo Ahora
             </motion.a>
 
             <motion.a
               href="#caracteristicas"
               whileHover={{ 
                 scale: 1.05,
-                borderColor: '#00BCD4',
-                color: '#00BCD4'
+                borderColor: '#2E7D32',
+                color: '#2E7D32'
               }}
               whileTap={{ scale: 0.98 }}
               transition={{ type: 'spring', stiffness: 300 }}

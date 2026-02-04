@@ -4,7 +4,7 @@ import ProblemStatementSection from '../components/marIA/ProblemStatementSection
 import IdentitySection from '../components/marIA/IdentitySection';
 import TechnologySection from '../components/marIA/TechnologySection';
 import OriginSection from '../components/marIA/OriginSection';
-import BusinessModelSection from '../components/marIA/BusinessModelSection';
+// import BusinessModelSection from '../components/marIA/BusinessModelSection';
 import MarketSection from '../components/marIA/MarketSection';
 import CompetitiveAdvantageSection from '../components/marIA/CompetitiveAdvantageSection';
 import VisionSection from '../components/marIA/VisionSection';
@@ -18,7 +18,7 @@ const MarIAProject = () => {
       <ProblemStatementSection />
       <TechnologySection />
       <OriginSection />
-      <BusinessModelSection />
+      {/* <BusinessModelSection /> */}
       <MarketSection />
       <CompetitiveAdvantageSection />
       <VisionSection />

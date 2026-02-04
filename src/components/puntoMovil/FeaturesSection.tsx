@@ -6,7 +6,7 @@ const FeaturesSection = () => {
   const [activeFeature, setActiveFeature] = useState(0);
 
   const features = [
-    {
+    /*{
       title: 'Cobro con QR y Medios Digitales',
       description: 'Acepta pagos con QR, tarjetas y transferencias desde cualquier dispositivo móvil.',
       icon: '📱',
@@ -17,7 +17,7 @@ const FeaturesSection = () => {
         'Confirmación instantánea de transacciones'
       ],
       color: 'from-[#2E7D32] to-[#4CAF50]'
-    },
+    },*/
     {
       title: 'Tickets y Comprobantes Electrónicos',
       description: 'Genera tickets profesionales y comprobantes fiscales digitales automáticamente.',
@@ -35,9 +35,9 @@ const FeaturesSection = () => {
       description: 'Gestiona tu stock, recibe alertas y sincroniza múltiples ubicaciones.',
       icon: '📦',
       details: [
-        'Registro de productos con imágenes',
+        'Registro de productos desde el smartphone',
+        'Genera código de barras y/o QR',
         'Alertas de stock bajo',
-        'Códigos de barras integrados',
         'Sincronización en tiempo real'
       ],
       color: 'from-[#8BC34A] to-[#AED581]'
@@ -66,7 +66,7 @@ const FeaturesSection = () => {
       ],
       color: 'from-[#26A69A] to-[#00BCD4]'
     },
-    {
+    /*{
       title: 'Seguridad Bancaria',
       description: 'Protección de transacciones con los más altos estándares de seguridad.',
       icon: '🛡️',
@@ -77,7 +77,7 @@ const FeaturesSection = () => {
         'Backups automáticos'
       ],
       color: 'from-[#212121] to-[#2E7D32]'
-    }
+    }*/
   ];
 
   return (
