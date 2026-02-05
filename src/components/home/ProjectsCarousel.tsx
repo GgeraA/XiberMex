@@ -25,12 +25,9 @@ const ProjectsCarousel = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [paused, setPaused] = useState(false);
 
-  const prevIndex =
-    (activeIndex - 1 + projects.length) % projects.length;
-  const nextIndex =
-    (activeIndex + 1) % projects.length;
+  const prevIndex = (activeIndex - 1 + projects.length) % projects.length;
+  const nextIndex = (activeIndex + 1) % projects.length;
 
-  // 🧲 Autoplay
   useEffect(() => {
     if (paused) return;
 
@@ -42,21 +39,35 @@ const ProjectsCarousel = () => {
   }, [paused]);
 
   return (
-    <section className="relative py-32 overflow-hidden bg-[#1C1B3E]">
+    <section className="relative py-32 overflow-hidden -mt-40">
 
-      {/* 🌊 Background animado */}
+      {/* 🌊 Overlay suave (oscurece sin romper el degradado global) */}
       <motion.div
-        className="absolute inset-0 opacity-30"
+        className="absolute inset-0 pointer-events-none"
         animate={{ backgroundPosition: ['0% 50%', '100% 50%'] }}
-        transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+        transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
         style={{
-          background:
-            'linear-gradient(120deg, #1C1B3E, #00838F, #4DD0E1)',
+          background: `
+            linear-gradient(
+              120deg,
+              rgba(77,208,225,0.15),
+              rgba(0,131,143,0.25),
+              rgba(28,27,62,0.35)
+            )
+          `,
           backgroundSize: '200% 200%',
         }}
       />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6">
+      <div className="relative z-10 max-w-7xl mx-auto px-8 py-20
+        rounded-[3rem]
+        bg-white/5
+        backdrop-blur-xl
+        shadow-[0_40px_120px_rgba(28,27,62,0.6)]
+        ring-1 ring-white/10
+      ">
+
+        {/* TÍTULO */}
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -72,7 +83,7 @@ const ProjectsCarousel = () => {
           onMouseLeave={() => setPaused(false)}
         >
 
-          {/* PROYECTO ANTERIOR */}
+          {/* PREV */}
           <div
             className="hidden md:block cursor-pointer opacity-60 hover:opacity-80 transition"
             onClick={() => setActiveIndex(prevIndex)}
@@ -83,7 +94,7 @@ const ProjectsCarousel = () => {
             />
           </div>
 
-          {/* PROYECTO ACTIVO */}
+          {/* ACTIVO */}
           <AnimatePresence mode="wait">
             <motion.div
               key={activeIndex}
@@ -92,22 +103,16 @@ const ProjectsCarousel = () => {
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.6 }}
             >
-              <Link
-                to={projects[activeIndex].link}
-                className="group relative block"
-              >
+              <Link to={projects[activeIndex].link} className="group block">
                 <div className="relative overflow-hidden rounded-3xl shadow-2xl ring-4 ring-[#4DD0E1]/40">
 
-                  {/* Imagen */}
                   <img
                     src={projects[activeIndex].image}
                     className="h-[440px] w-[620px] object-cover transition-transform duration-700 group-hover:scale-105"
                   />
 
-                  {/* 🖼 Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                  {/* Texto */}
                   <div className="absolute bottom-8 left-8 right-8 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0">
                     <p className="text-sm text-[#4DD0E1] uppercase tracking-wider">
                       {projects[activeIndex].category}
@@ -130,7 +135,7 @@ const ProjectsCarousel = () => {
             </motion.div>
           </AnimatePresence>
 
-          {/* PROYECTO SIGUIENTE */}
+          {/* NEXT */}
           <div
             className="hidden md:block cursor-pointer opacity-60 hover:opacity-80 transition"
             onClick={() => setActiveIndex(nextIndex)}

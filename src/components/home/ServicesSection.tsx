@@ -51,8 +51,17 @@ const cardVariants = {
 
 const ServicesSection = () => {
   return (
-    <section className="relative bg-white py-24">
-      <div className="max-w-7xl mx-auto px-8">
+    <section
+      className="
+        relative
+        bg-gradient-to-b
+        from-white
+        via-[#F1F7FA]
+        to-[#E6F4F7]
+        py-20 md:py-28
+      "
+    >
+      <div className="max-w-7xl mx-auto px-6 md:px-8">
 
         {/* TÍTULO */}
         <motion.h2
@@ -60,7 +69,11 @@ const ServicesSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-3xl md:text-4xl font-bold text-[#1C1B3E] text-center mb-14"
+          className="
+            text-2xl md:text-4xl
+            font-bold text-[#1C1B3E]
+            text-center mb-12 md:mb-16
+          "
         >
           Nuestros Servicios
         </motion.h2>
@@ -71,18 +84,31 @@ const ServicesSection = () => {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: '-100px' }}
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10"
+          className="
+            grid grid-cols-1
+            sm:grid-cols-2
+            lg:grid-cols-4
+            gap-8 md:gap-10
+          "
         >
           {services.map((service) => (
             <motion.div
               key={service.title}
               variants={cardVariants}
               whileHover={{
-                y: -10,
-                boxShadow: '0px 0px 30px rgba(77,208,225,0.35)',
+                y: -12,
+                boxShadow: '0 20px 60px rgba(77,208,225,0.25)',
               }}
               transition={{ type: 'spring', stiffness: 200 }}
-              className="group relative bg-[#F8FAFC] rounded-xl p-8 border border-transparent hover:border-[#4DD0E1]/50"
+              className="
+                group relative
+                bg-white
+                rounded-2xl
+                p-6 md:p-8
+                border border-[#4DD0E1]/20
+                hover:border-[#4DD0E1]/50
+                transition-all
+              "
             >
               {/* ICONO */}
               <motion.img
@@ -90,20 +116,28 @@ const ServicesSection = () => {
                 alt={service.title}
                 whileHover={{ scale: 1.1 }}
                 transition={{ type: 'spring', stiffness: 300 }}
-                className="w-16 h-16 mb-6 mx-auto"
+                className="w-14 h-14 md:w-16 md:h-16 mb-6 mx-auto"
               />
 
               {/* TEXTO */}
-              <h3 className="text-xl font-semibold text-[#00838F] text-center">
+              <h3 className="text-lg md:text-xl font-semibold text-[#00838F] text-center">
                 {service.title}
               </h3>
 
-              <p className="mt-3 text-center text-gray-600 text-sm leading-relaxed">
+              <p className="mt-3 text-sm md:text-base text-center text-gray-600 leading-relaxed">
                 {service.description}
               </p>
 
-              {/* Glow decorativo */}
-              <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition pointer-events-none bg-gradient-to-br from-[#4DD0E1]/10 to-transparent" />
+              {/* Glow hover */}
+              <div
+                className="
+                  absolute inset-0 rounded-2xl
+                  opacity-0 group-hover:opacity-100
+                  transition pointer-events-none
+                  bg-gradient-to-br
+                  from-[#4DD0E1]/10 to-transparent
+                "
+              />
             </motion.div>
           ))}
         </motion.div>
