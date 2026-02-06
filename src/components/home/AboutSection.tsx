@@ -18,7 +18,7 @@ export default function AboutSection() {
 
   return (
     <section className="relative bg-gradient-to-b from-[#1C1B3E] to-[#0E1A2B] py-32 overflow-hidden">
-
+      <div className="absolute top-0 inset-x-0 h-24 bg-gradient-to-b from-[#0E1A2B] to-transparent" />
       {/* HALO ROTATORIO */}
       <motion.div
         animate={{ rotate: 360 }}

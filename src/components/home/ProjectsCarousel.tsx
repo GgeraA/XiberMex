@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
+import SectionFade from '../ui/SectionFade'
 
 const projects = [
   {
@@ -44,7 +45,7 @@ export default function ProjectsCarousel() {
         <motion.h2
           initial={{ opacity: 0, y: 40, filter: 'blur(10px)' }}
           whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-          viewport={{ once: true, amount: 0.6 }}
+          viewport={{ once: false, amount: 0.6 }}
           transition={{ duration: .9 }}
           className="text-4xl font-bold text-white mb-20"
         >
@@ -137,6 +138,8 @@ export default function ProjectsCarousel() {
         </div>
 
       </div>
+      <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-t from-[#0E1A2B] to-transparent" />
     </section>
   )
 }
+<SectionFade bottom />
