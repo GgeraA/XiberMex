@@ -1,41 +1,64 @@
-import { motion } from 'framer-motion';
-import { easeInOut } from 'framer-motion';
+import { motion } from 'framer-motion'
+import { useState, useMemo } from 'react'
 
-const panelVariants = {
-  hidden: {
-    opacity: 0,
-    y: 40,
-    filter: 'blur(6px)',
-  },
-  show: {
-    opacity: 1,
-    y: 0,
-    filter: 'blur(0px)',
-    transition: {
-      duration: 0.8,
-      ease: easeInOut,
-    },
-  },
-};
+function generateParticles() {
+  return [...Array(20)].map(() => ({
+    x: Math.random() * 800 - 400,
+    y: Math.random() * 600 - 300,
+    duration: 4 + Math.random() * 4,
+  }))
+}
 
-const AboutSection = () => {
+export default function AboutSection() {
+  const [active, setActive] = useState<'heart' | 'mind' | null>(null)
+
+  const particles = useMemo(() => {
+    return generateParticles()
+  }, [])
+
   return (
-    <section className="relative bg-[#1C1B3E] py-32 overflow-hidden">
+    <section className="relative bg-gradient-to-b from-[#1C1B3E] to-[#0E1A2B] py-32 overflow-hidden">
 
-      {/* Glow decorativo */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 w-[600px] h-[600px] bg-[#4DD0E1]/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
+      {/* HALO ROTATORIO */}
+      <motion.div
+        animate={{ rotate: 360 }}
+        transition={{ duration: 120, repeat: Infinity, ease: 'linear' }}
+        className="absolute top-1/2 left-1/2 w-[700px] h-[700px] rounded-full border border-[#4DD0E1]/10 -translate-x-1/2 -translate-y-1/2"
+      />
+
+      {/* GLOW */}
+      <div className="absolute inset-0">
+        <div className="absolute top-1/2 left-1/2 w-[600px] h-[600px] bg-[#4DD0E1]/10 blur-3xl rounded-full -translate-x-1/2 -translate-y-1/2" />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16">
+      {/* MICRO PARTICULAS */}
+      {particles.map((particle, i) => (
+        <motion.span
+          key={i}
+          className="absolute w-1 h-1 bg-[#4DD0E1]/40 rounded-full"
+          initial={{
+            x: particle.x,
+            y: particle.y,
+          }}
+          animate={{ y: [-10, 10] }}
+          transition={{
+            duration: particle.duration,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+          style={{
+            top: '50%',
+            left: '50%',
+          }}
+        />
+      ))}
 
-        {/* QUIÉNES SOMOS */}
+      <div className="relative max-w-7xl mx-auto px-8 grid md:grid-cols-3 gap-12 items-center">
+
+        {/* QUIENES SOMOS */}
         <motion.div
-          variants={panelVariants}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          className="relative p-10 rounded-xl border border-[#4DD0E1]/30 bg-[#1C1B3E]/80 backdrop-blur"
+          animate={{ opacity: active === 'mind' ? .4 : 1 }}
+          className="p-10 rounded-2xl border border-[#4DD0E1]/25 bg-white/5 backdrop-blur-xl"
         >
           <span className="text-xs tracking-widest text-[#4DD0E1] uppercase">
             Sobre nosotros
@@ -45,23 +68,88 @@ const AboutSection = () => {
             Quiénes somos
           </h2>
 
-          <p className="mt-6 text-[#AAB7C4] leading-relaxed">
-            Somos una empresa de desarrollo de software enfocada en crear
-            soluciones tecnológicas, automatización e inteligencia artificial
-            para organizaciones que buscan escalar con eficiencia.
+          <p className="mt-6 text-[#AAB7C4]">
+            Somos una empresa enfocada en desarrollo de software,
+            automatización e inteligencia artificial.
           </p>
 
-          {/* Línea TRON */}
-          <div className="mt-8 h-px bg-gradient-to-r from-[#4DD0E1] to-transparent" />
+          {/* DATA FLOW */}
+          <motion.div
+            animate={{ backgroundPosition: ['0%', '200%'] }}
+            transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
+            className="mt-8 h-px"
+            style={{
+              background:
+                'linear-gradient(90deg,transparent,#4DD0E1,transparent)',
+              backgroundSize: '200% 100%',
+            }}
+          />
         </motion.div>
 
-        {/* CÓMO LO HACEMOS */}
+        {/* DIAGRAMA MARIA (solo desktop) */}
+        <div className="relative hidden md:flex justify-center">
+
+          <div className="relative">
+
+            <img
+              src="/images/Mar.png"
+              className="w-48 opacity-90 pointer-events-none"
+            />
+
+            {/* CORAZON */}
+            <div
+              onMouseEnter={() => setActive('heart')}
+              onMouseLeave={() => setActive(null)}
+              className="absolute top-[40%] left-1/2 -translate-x-1/2 cursor-pointer"
+            >
+              <div className="relative">
+                <div className="w-4 h-4 rounded-full bg-[#4DD0E1] shadow-[0_0_15px_#4DD0E1]" />
+                <div className="absolute inset-0 animate-ping bg-[#4DD0E1]/50 rounded-full" />
+              </div>
+            </div>
+
+            {/* MENTE */}
+            <div
+              onMouseEnter={() => setActive('mind')}
+              onMouseLeave={() => setActive(null)}
+              className="absolute top-[18%] left-1/2 -translate-x-1/2 cursor-pointer"
+            >
+              <div className="relative">
+                <div className="w-4 h-4 rounded-full bg-[#00838F] shadow-[0_0_15px_#00838F]" />
+                <div className="absolute inset-0 animate-ping bg-[#00838F]/50 rounded-full" />
+              </div>
+            </div>
+
+            {/* LINEAS */}
+            <motion.div
+              animate={{ backgroundPosition: ['0%', '200%'] }}
+              transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
+              className="absolute top-[18%] left-full w-32 h-px"
+              style={{
+                background:
+                  'linear-gradient(90deg,#4DD0E1,transparent)',
+                backgroundSize: '200% 100%',
+              }}
+            />
+
+            <motion.div
+              animate={{ backgroundPosition: ['200%', '0%'] }}
+              transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
+              className="absolute top-[40%] right-full w-32 h-px"
+              style={{
+                background:
+                  'linear-gradient(90deg,#00838F,transparent)',
+                backgroundSize: '200% 100%',
+              }}
+            />
+
+          </div>
+        </div>
+
+        {/* COMO LO HACEMOS */}
         <motion.div
-          variants={panelVariants}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          className="relative p-10 rounded-xl border border-[#00838F]/40 bg-[#1C1B3E]/80 backdrop-blur"
+          animate={{ opacity: active === 'heart' ? .4 : 1 }}
+          className="p-10 rounded-2xl border border-[#00838F]/35 bg-white/5 backdrop-blur-xl"
         >
           <span className="text-xs tracking-widest text-[#00838F] uppercase">
             Metodología
@@ -71,19 +159,31 @@ const AboutSection = () => {
             Cómo lo hacemos
           </h2>
 
-          <p className="mt-6 text-[#AAB7C4] leading-relaxed">
+          <p className="mt-6 text-[#AAB7C4]">
             Diseñamos, prototipamos y desarrollamos productos digitales
-            personalizados utilizando tecnologías modernas y metodologías
-            ágiles orientadas a resultados.
+            con metodologías ágiles.
           </p>
 
-          {/* Línea TRON */}
-          <div className="mt-8 h-px bg-gradient-to-r from-[#00838F] to-transparent" />
+          {/* DATA FLOW */}
+          <motion.div
+            animate={{ backgroundPosition: ['0%', '200%'] }}
+            transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
+            className="mt-8 h-px"
+            style={{
+              background:
+                'linear-gradient(90deg,transparent,#00838F,transparent)',
+              backgroundSize: '200% 100%',
+            }}
+          />
         </motion.div>
 
       </div>
-    </section>
-  );
-};
 
-export default AboutSection;
+      {/* MOBILE EXTRA */}
+      <div className="md:hidden mt-16 px-8 text-center text-[#AAB7C4]">
+        <p>Explora nuestros procesos y filosofía deslizando.</p>
+      </div>
+
+    </section>
+  )
+}

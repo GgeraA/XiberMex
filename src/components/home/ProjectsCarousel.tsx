@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const projects = [
   {
@@ -8,157 +8,135 @@ const projects = [
     image: '/images/maria.jpeg',
     link: '/proyectos/maria',
     category: 'Inteligencia Artificial',
-    stack: ['React', 'Node.js', 'OpenAI'],
   },
   {
     title: 'Punto Móvil',
     image: '/images/puntomovil.jpeg',
     link: '/proyectos/puntomovil',
     category: 'Aplicación Móvil',
-    stack: ['React Native', 'Firebase'],
   },
-];
+]
 
-const AUTO_PLAY_DELAY = 4000;
+const AUTO = 3000
 
-const ProjectsCarousel = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [paused, setPaused] = useState(false);
+export default function ProjectsCarousel() {
+  const [index, setIndex] = useState(0)
 
-  const prevIndex =
-    (activeIndex - 1 + projects.length) % projects.length;
-  const nextIndex =
-    (activeIndex + 1) % projects.length;
-
-  // 🧲 Autoplay
   useEffect(() => {
-    if (paused) return;
+    const t = setInterval(() => {
+      setIndex((p) => (p + 1) % projects.length)
+    }, AUTO)
 
-    const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % projects.length);
-    }, AUTO_PLAY_DELAY);
-
-    return () => clearInterval(interval);
-  }, [paused]);
+    return () => clearInterval(t)
+  }, [])
 
   return (
-    <section className="relative py-32 overflow-hidden bg-[#1C1B3E]">
+    <section className="relative py-32 -mt-32 overflow-hidden bg-[#0A1024]">
 
-      {/* 🌊 Background animado */}
-      <motion.div
-        className="absolute inset-0 opacity-30"
-        animate={{ backgroundPosition: ['0% 50%', '100% 50%'] }}
-        transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-        style={{
-          background:
-            'linear-gradient(120deg, #1C1B3E, #00838F, #4DD0E1)',
-          backgroundSize: '200% 200%',
-        }}
-      />
+      {/* halo central */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/2 left-1/2 w-[700px] h-[700px] bg-[#4DD0E1]/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
+      </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6">
+      <div className="relative z-10 max-w-7xl mx-auto px-8">
+
+        {/* TITULO */}
         <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-4xl font-bold text-white text-center mb-20"
+          initial={{ opacity: 0, y: 40, filter: 'blur(10px)' }}
+          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          viewport={{ once: true, amount: 0.6 }}
+          transition={{ duration: .9 }}
+          className="text-4xl font-bold text-white mb-20"
         >
           Proyectos desarrollados
         </motion.h2>
 
-        <div
-          className="flex items-center justify-center gap-12"
-          onMouseEnter={() => setPaused(true)}
-          onMouseLeave={() => setPaused(false)}
-        >
+        <div className="grid md:grid-cols-2 gap-16 items-center">
 
-          {/* PROYECTO ANTERIOR */}
-          <div
-            className="hidden md:block cursor-pointer opacity-60 hover:opacity-80 transition"
-            onClick={() => setActiveIndex(prevIndex)}
-          >
-            <img
-              src={projects[prevIndex].image}
-              className="h-72 w-[420px] object-cover rounded-2xl rotate-[-4deg]"
-            />
-          </div>
-
-          {/* PROYECTO ACTIVO */}
+          {/* CONTENIDO */}
           <AnimatePresence mode="wait">
             <motion.div
-              key={activeIndex}
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.6 }}
+              key={index + 'text'}
+              initial={{ opacity: 0, x: -60 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -80 }}
+              transition={{ duration: .8 }}
             >
-              <Link
-                to={projects[activeIndex].link}
-                className="group relative block"
-              >
-                <div className="relative overflow-hidden rounded-3xl shadow-2xl ring-4 ring-[#4DD0E1]/40">
 
-                  {/* Imagen */}
-                  <img
-                    src={projects[activeIndex].image}
-                    className="h-[440px] w-[620px] object-cover transition-transform duration-700 group-hover:scale-105"
+              <p className="text-[#4DD0E1] uppercase tracking-widest text-sm">
+                {projects[index].category}
+              </p>
+
+              <h3 className="mt-6 text-5xl font-bold text-white relative">
+
+                {projects[index].title}
+
+                {/* NEON LINE */}
+                <div className="relative mt-4 h-[2px] w-64 overflow-hidden bg-white/10">
+
+                  <motion.div
+                    className="absolute top-0 left-0 h-full w-20"
+                    animate={{ x: ['-40%', '140%'] }}
+                    transition={{ duration: 2.5, repeat: Infinity, ease: 'linear' }}
+                    style={{
+                      background:
+                        'linear-gradient(90deg, transparent, #4DD0E1, transparent)',
+                      boxShadow: '0 0 15px rgba(77,208,225,.8)',
+                    }}
                   />
 
-                  {/* 🖼 Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                  {/* Texto */}
-                  <div className="absolute bottom-8 left-8 right-8 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0">
-                    <p className="text-sm text-[#4DD0E1] uppercase tracking-wider">
-                      {projects[activeIndex].category}
-                    </p>
-
-                    <h3 className="text-3xl font-bold text-white mt-1">
-                      {projects[activeIndex].title}
-                    </h3>
-
-                    <p className="mt-2 text-sm text-[#AAB7C4]">
-                      {projects[activeIndex].stack.join(' · ')}
-                    </p>
-
-                    <span className="inline-block mt-4 text-[#4DD0E1] font-semibold">
-                      Ver proyecto →
-                    </span>
-                  </div>
                 </div>
+
+              </h3>
+
+              <p className="mt-6 text-[#AAB7C4] max-w-md">
+                Soluciones digitales modernas impulsadas por inteligencia
+                artificial y desarrollo de software avanzado.
+              </p>
+
+              <Link
+                to={projects[index].link}
+                className="inline-block mt-10 text-[#4DD0E1] border border-[#4DD0E1]/40 px-8 py-3 rounded-md hover:bg-[#4DD0E1]/10 transition"
+              >
+                Ver proyecto →
               </Link>
+
             </motion.div>
           </AnimatePresence>
 
-          {/* PROYECTO SIGUIENTE */}
-          <div
-            className="hidden md:block cursor-pointer opacity-60 hover:opacity-80 transition"
-            onClick={() => setActiveIndex(nextIndex)}
-          >
-            <img
-              src={projects[nextIndex].image}
-              className="h-72 w-[420px] object-cover rounded-2xl rotate-[4deg]"
-            />
+          {/* IMAGEN */}
+          <div className="relative h-[360px]">
+
+            <AnimatePresence mode="wait">
+              <motion.img
+                key={index}
+                src={projects[index].image}
+                initial={{ opacity: 0, x: 120, scale: .95 }}
+                animate={{ opacity: 1, x: 0, scale: 1 }}
+                exit={{ opacity: 0, x: -120, scale: .9 }}
+                transition={{ duration: .9, ease: 'easeInOut' }}
+                className="absolute inset-0 w-full h-full object-cover rounded-xl
+                border border-white/10 shadow-[0_0_40px_rgba(77,208,225,0.25)]"
+              />
+            </AnimatePresence>
+
           </div>
         </div>
 
-        {/* INDICADORES */}
-        <div className="mt-14 flex justify-center gap-4">
-          {projects.map((_, index) => (
+        {/* indicadores */}
+        <div className="mt-16 flex gap-4">
+          {projects.map((_, i) => (
             <button
-              key={index}
-              onClick={() => setActiveIndex(index)}
-              className={`h-3 w-3 rounded-full transition-all ${
-                index === activeIndex
-                  ? 'bg-[#4DD0E1] scale-125'
-                  : 'bg-[#AAB7C4]'
+              key={i}
+              onClick={() => setIndex(i)}
+              className={`h-2 w-8 rounded-full transition ${
+                i === index ? 'bg-[#4DD0E1]' : 'bg-white/20'
               }`}
             />
           ))}
         </div>
+
       </div>
     </section>
-  );
-};
-
-export default ProjectsCarousel;
+  )
+}

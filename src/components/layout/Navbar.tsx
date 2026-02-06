@@ -94,7 +94,6 @@ const Navbar: React.FC = () => {
         'Automatización de procesos',
         'Business Intelligence',
         'Ciberseguridad',
-        'Ver todas las funciones',
       ],
     },
     {
@@ -105,7 +104,6 @@ const Navbar: React.FC = () => {
         'Tutoriales',
         'Casos de éxito',
         'Centro de ayuda',
-        'Ver todas las funciones',
       ],
     },
   ];

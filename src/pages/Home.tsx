@@ -9,7 +9,17 @@ import CTASection from '../components/home/CTASection';
 
 const Home = () => {
   return (
-    <>
+    <main
+      className="
+        w-full overflow-hidden
+        bg-gradient-to-b
+        from-white
+        via-[#E0F7FA]
+        via-[#4DD0E1]
+        via-[#00838F]
+        to-[#1C1B3E]
+      "
+    >
       <HeroSection />
       <ProjectsCarousel />
       <DividerBlock />
@@ -18,7 +28,7 @@ const Home = () => {
       <HowWeWorkSection />
       <TestimonialsSection />
       <CTASection />
-    </>
+    </main>
   );
 };
 
