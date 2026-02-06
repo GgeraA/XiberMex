@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const Navbar: React.FC = () => {
   const [activeDropdown, setActiveDropdown] = React.useState<string | null>(null);
+  const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const mainMenuItems = [
     {
@@ -19,7 +20,6 @@ const Navbar: React.FC = () => {
         'Automatización de procesos',
         'Business Intelligence',
         'Ciberseguridad',
-        'Ver todas las funciones',
       ],
     },
     {
@@ -30,7 +30,6 @@ const Navbar: React.FC = () => {
         'Tutoriales',
         'Casos de éxito',
         'Centro de ayuda',
-        'Ver todas las funciones',
       ],
     },
   ];
@@ -55,7 +54,7 @@ const Navbar: React.FC = () => {
             </span>
           </Link>
 
-          {/* Menú central */}
+          {/* Desktop menu */}
           <div className="hidden md:flex items-center gap-10 absolute left-1/2 -translate-x-1/2">
             {mainMenuItems.map((item) => (
               <div
@@ -64,17 +63,13 @@ const Navbar: React.FC = () => {
                 onMouseEnter={() => setActiveDropdown(item.name)}
                 onMouseLeave={() => setActiveDropdown(null)}
               >
-                {/* Item */}
                 <motion.span
                   whileHover={{ color: '#4DD0E1' }}
-                  className="relative cursor-pointer text-sm tracking-widest text-white uppercase"
+                  className="cursor-pointer text-sm tracking-widest text-white uppercase"
                 >
                   {item.name}
-                  {/* Línea inferior animada */}
-                  <span className="absolute left-0 -bottom-1 w-0 h-[1px] bg-[#4DD0E1] group-hover:w-full transition-all duration-300" />
                 </motion.span>
 
-                {/* Dropdown */}
                 <AnimatePresence>
                   {activeDropdown === item.name && (
                     <motion.div
@@ -83,26 +78,19 @@ const Navbar: React.FC = () => {
                       exit={{ opacity: 0, y: 10 }}
                       transition={{ duration: 0.25 }}
                       className="absolute left-1/2 top-full mt-4 w-64 -translate-x-1/2
-                                 rounded-xl border border-[#4DD0E1]/30
-                                 bg-[#1C1B3E]/95 backdrop-blur-xl
-                                 shadow-[0_0_40px_rgba(77,208,225,0.15)]"
+                      rounded-xl border border-[#4DD0E1]/30
+                      bg-[#1C1B3E]/95 backdrop-blur-xl"
                     >
                       <div className="p-5 space-y-2">
-                        {item.dropdownItems.map((sub) => {
-                          const route = projectRoutes[sub] || '#';
-
-                          return (
-                            <Link
-                              key={sub}
-                              to={route}
-                              className="block text-sm text-[#AAB7C4]
-                                         hover:text-[#4DD0E1]
-                                         transition-colors"
-                            >
-                              {sub}
-                            </Link>
-                          );
-                        })}
+                        {item.dropdownItems.map((sub) => (
+                          <Link
+                            key={sub}
+                            to={projectRoutes[sub] || '#'}
+                            className="block text-sm text-[#AAB7C4] hover:text-[#4DD0E1]"
+                          >
+                            {sub}
+                          </Link>
+                        ))}
                       </div>
                     </motion.div>
                   )}
@@ -111,10 +99,74 @@ const Navbar: React.FC = () => {
             ))}
           </div>
 
-          {/* Espaciador */}
-          <div className="w-32 hidden md:block" />
+          {/* Hamburger */}
+          <button
+            onClick={() => setMobileOpen(true)}
+            className="md:hidden text-[#4DD0E1] text-2xl"
+          >
+            ☰
+          </button>
         </div>
       </div>
+
+      {/* MOBILE PANEL */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0, x: '100%' }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: '100%' }}
+            transition={{ duration: 0.4 }}
+            className="fixed inset-0 bg-[#0B0E2A]/95 backdrop-blur-xl z-50"
+          >
+            <div className="p-8">
+
+              {/* Close */}
+              <button
+                onClick={() => setMobileOpen(false)}
+                className="text-[#4DD0E1] text-xl mb-10"
+              >
+                ✕
+              </button>
+
+              {mainMenuItems.map((item) => (
+                <div key={item.name} className="mb-8">
+                  <button
+                    onClick={() =>
+                      setActiveDropdown(activeDropdown === item.name ? null : item.name)
+                    }
+                    className="text-white tracking-widest uppercase mb-3"
+                  >
+                    {item.name}
+                  </button>
+
+                  <AnimatePresence>
+                    {activeDropdown === item.name && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        className="pl-4 space-y-2"
+                      >
+                        {item.dropdownItems.map((sub) => (
+                          <Link
+                            key={sub}
+                            onClick={() => setMobileOpen(false)}
+                            to={projectRoutes[sub] || '#'}
+                            className="block text-[#AAB7C4]"
+                          >
+                            {sub}
+                          </Link>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };
