@@ -51,9 +51,7 @@ const HowWeWorkSection = () => {
       className="
         relative
         bg-gradient-to-b
-        from-[#E6F4F7]
-        via-[#0E1A2B]
-        to-[#1C1B3E]
+        from-[#1C1B3E] via-[#0E1A2B] to-[#1C1B3E]
         py-24 md:py-32
         overflow-hidden
       "

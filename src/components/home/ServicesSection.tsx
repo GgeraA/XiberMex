@@ -51,16 +51,15 @@ const cardVariants = {
 
 const ServicesSection = () => {
   return (
-    <section
-      className="
-        relative
-        bg-gradient-to-b
-        from-white
-        via-[#F1F7FA]
-        to-[#E6F4F7]
-        py-20 md:py-28
-      "
-    >
+    <section className="
+relative
+bg-gradient-to-b
+from-[#0E1A2B]
+to-[#1C1B3E]
+py-24 md:py-32
+overflow-hidden
+">
+
       <div className="max-w-7xl mx-auto px-6 md:px-8">
 
         {/* TÍTULO */}
@@ -71,7 +70,7 @@ const ServicesSection = () => {
           viewport={{ once: true }}
           className="
             text-2xl md:text-4xl
-            font-bold text-[#1C1B3E]
+            font-bold text-[#4DD0E1]
             text-center mb-12 md:mb-16
           "
         >
@@ -102,7 +101,7 @@ const ServicesSection = () => {
               transition={{ type: 'spring', stiffness: 200 }}
               className="
                 group relative
-                bg-white
+                bg-white/5 backdrop-blur-xl
                 rounded-2xl
                 p-6 md:p-8
                 border border-[#4DD0E1]/20
@@ -120,7 +119,7 @@ const ServicesSection = () => {
               />
 
               {/* TEXTO */}
-              <h3 className="text-lg md:text-xl font-semibold text-[#00838F] text-center">
+              <h3 className="text-lg md:text-xl font-semibold text-[#AAB7C4] text-center">
                 {service.title}
               </h3>
 
