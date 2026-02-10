@@ -35,7 +35,6 @@ const Navbar: React.FC = () => {
 
   // Calcular estilos según proyecto y scroll
   const getNavbarStyles = () => {
-    const isProjectPage = currentProject !== 'home';
 
     if (!isScrolled) {
       // Cuando scroll es 0 o menor a 20
