@@ -123,7 +123,7 @@ const IdentitySection = () => {
                   className="text-2xl lg:text-3xl font-bold text-[#1C1B3E] mt-2"
                   whileHover={{ scale: 1.05 }}
                 >
-                  Lele
+                  Una muñeca mexciana
                   <span className="text-lg lg:text-xl text-[#0E7E92] ml-2">✨</span>
                 </motion.h3>
                 <p className="text-sm lg:text-base text-gray-500 mt-3 max-w-xs">
@@ -169,7 +169,7 @@ const IdentitySection = () => {
 
               <p className="text-gray-700 text-lg leading-relaxed">
                 Su arquitectura combina procesamiento de lenguaje natural, aprendizaje automático
-                y una <span className="font-medium text-[#0E7E92]">identidad profundamente mexicana</span>
+                y una <span className="font-medium text-[#0E7E92]">identidad profundamente mexicana </span>
                 que la convierte en un puente entre tradición y futuro.
               </p>
             </div>

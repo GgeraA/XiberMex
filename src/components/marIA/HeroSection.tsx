@@ -278,7 +278,7 @@ const HeroSection = () => {
 
                 {/* ESPACIO PARA LA IMAGEN DE MARIA - Puedes reemplazar esto */}
                 <img
-                  src="/images/maria.jpeg"
+                  src="/images/maria2.jpeg"
                   alt="MarIA Avatar"
                   className="w-full h-full object-cover rounded-full"
                 />

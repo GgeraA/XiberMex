@@ -26,10 +26,10 @@ const CTASection = () => {
     },
     {
       id: 'whitepaper',
-      title: 'Descargar Whitepaper',
-      description: 'Accede al documento completo con especificaciones técnicas y estudios de caso.',
+      title: 'Suscripción',
+      description: 'Accede al uso de MarIA por una inversión de $70/mes.',
       icon: '📄',
-      buttonText: 'Descargar PDF',
+      buttonText: 'Consulta información',
       color: 'from-[#4DD0E1] to-[#0E7E92]'
     }
   ];

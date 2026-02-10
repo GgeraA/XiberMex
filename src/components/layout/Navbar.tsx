@@ -14,25 +14,83 @@ const Navbar: React.FC = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
-    
+
     window.addEventListener('scroll', handleScroll);
     handleScroll(); // Verificar estado inicial
-    
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Determinar si estamos en una página con fondo claro
-  const isLightBackgroundPage = () => {
-    return location.pathname.includes('/proyectos/maria') || 
-           location.pathname.includes('/proyectos/puntomovil');
+  // Determinar proyecto actual basado en la ruta
+  const getCurrentProject = () => {
+    if (location.pathname.includes('/proyectos/maria')) {
+      return 'maria';
+    } else if (location.pathname.includes('/proyectos/puntomovil')) {
+      return 'puntomovil';
+    }
+    return 'home';
   };
 
-  // Calcular colores según fondo y scroll
+  const currentProject = getCurrentProject();
+
+  // Calcular estilos según proyecto y scroll
   const getNavbarStyles = () => {
-    const isLightPage = isLightBackgroundPage();
-    
-    if (isScrolled) {
-      // Cuando hay scroll, navbar sólido
+    const isProjectPage = currentProject !== 'home';
+
+    if (!isScrolled) {
+      // Cuando scroll es 0 o menor a 20
+      if (currentProject === 'maria') {
+        return {
+          background: 'bg-white/80 backdrop-blur-md',
+          textColor: 'text-[#0E7E92]',
+          border: 'border-b border-[#0E7E92]/20',
+          logoColor: 'text-[#0E7E92]',
+          sublogoColor: 'text-[#0E7E92]/80',
+          buttonLines: 'bg-[#0E7E92]'
+        };
+      } else if (currentProject === 'puntomovil') {
+        return {
+          background: 'bg-white/80 backdrop-blur-md',
+          textColor: 'text-[#2E7D32]',
+          border: 'border-b border-[#2E7D32]/20',
+          logoColor: 'text-[#2E7D32]',
+          sublogoColor: 'text-[#2E7D32]/80',
+          buttonLines: 'bg-[#2E7D32]'
+        };
+      } else {
+        // Home page - fondo oscuro
+        return {
+          background: 'bg-transparent backdrop-blur-md',
+          textColor: 'text-white',
+          border: '',
+          logoColor: 'text-white',
+          sublogoColor: 'text-[#4DD0E1]/80',
+          buttonLines: 'bg-white'
+        };
+      }
+    }
+
+    // Cuando scroll es mayor a 20 (navbar sólido)
+    if (currentProject === 'maria') {
+      return {
+        background: 'bg-[#0E7E92]',
+        textColor: 'text-white',
+        border: 'border-b border-white/20',
+        logoColor: 'text-white',
+        sublogoColor: 'text-white/90',
+        buttonLines: 'bg-white'
+      };
+    } else if (currentProject === 'puntomovil') {
+      return {
+        background: 'bg-[#2E7D32]',
+        textColor: 'text-white',
+        border: 'border-b border-white/20',
+        logoColor: 'text-white',
+        sublogoColor: 'text-white/90',
+        buttonLines: 'bg-white'
+      };
+    } else {
+      // Home page con scroll > 20
       return {
         background: 'bg-[#1C1B3E]',
         textColor: 'text-white',
@@ -42,31 +100,23 @@ const Navbar: React.FC = () => {
         buttonLines: 'bg-white'
       };
     }
-    
-    if (isLightPage) {
-      // Páginas con fondo claro (MarIA, Punto Móvil)
-      return {
-        background: 'bg-white/90 backdrop-blur-md',
-        textColor: 'text-[#1C1B3E]',
-        border: 'border-b border-gray-200',
-        logoColor: 'text-[#1C1B3E]',
-        sublogoColor: 'text-[#00838F]',
-        buttonLines: 'bg-[#1C1B3E]'
-      };
-    }
-    
-    // Páginas con fondo oscuro (Home, etc.)
-    return {
-      background: 'bg-transparent backdrop-blur-md',
-      textColor: 'text-white',
-      border: '',
-      logoColor: 'text-white',
-      sublogoColor: 'text-[#4DD0E1]/80',
-      buttonLines: 'bg-white'
-    };
   };
 
   const styles = getNavbarStyles();
+
+  // Obtener color de fondo sólido para el menú móvil
+  const getMobileMenuBackground = () => {
+    switch (currentProject) {
+      case 'maria':
+        return 'from-[#0E7E92] via-[#0b6a7a] to-[#0E7E92]';
+      case 'puntomovil':
+        return 'from-[#2E7D32] via-[#256c29] to-[#2E7D32]';
+      default:
+        return 'from-[#1C1B3E] via-[#0f0e29] to-[#1C1B3E]';
+    }
+  };
+
+  const mobileMenuBg = getMobileMenuBackground();
 
   // Bloquear scroll cuando el menú móvil está abierto
   useEffect(() => {
@@ -75,7 +125,7 @@ const Navbar: React.FC = () => {
     } else {
       document.body.style.overflow = 'unset';
     }
-    
+
     return () => {
       document.body.style.overflow = 'unset';
     };
@@ -123,6 +173,20 @@ const Navbar: React.FC = () => {
     setActiveDropdown(null);
   };
 
+  // Obtener color del botón hamburguesa según el estado
+  const getHamburgerColor = () => {
+    if (currentProject === 'home' && !isScrolled) {
+      return 'bg-white';
+    } else if (currentProject === 'maria' && !isScrolled) {
+      return 'bg-[#0E7E92]';
+    } else if (currentProject === 'puntomovil' && !isScrolled) {
+      return 'bg-[#2E7D32]';
+    }
+    return 'bg-white';
+  };
+
+  const hamburgerColor = getHamburgerColor();
+
   return (
     <>
       {/* Navbar Principal - Siempre visible */}
@@ -151,12 +215,20 @@ const Navbar: React.FC = () => {
                 >
                   {/* Item */}
                   <motion.span
-                    whileHover={{ color: '#4DD0E1' }}
+                    whileHover={{ 
+                      color: currentProject === 'maria' ? '#FFFFFF' : 
+                            currentProject === 'puntomovil' ? '#FFFFFF' : 
+                            '#4DD0E1' 
+                    }}
                     className={`relative cursor-pointer text-sm tracking-widest uppercase transition-colors ${styles.textColor}`}
                   >
                     {item.name}
                     {/* Línea inferior animada */}
-                    <span className="absolute left-0 -bottom-1 w-0 h-[1px] bg-[#4DD0E1] group-hover:w-full transition-all duration-300" />
+                    <span className={`absolute left-0 -bottom-1 w-0 h-[1px] ${
+                      currentProject === 'maria' ? 'bg-white' :
+                      currentProject === 'puntomovil' ? 'bg-white' :
+                      'bg-[#4DD0E1]'
+                    } group-hover:w-full transition-all duration-300`} />
                   </motion.span>
 
                   {/* Dropdown Desktop */}
@@ -167,10 +239,13 @@ const Navbar: React.FC = () => {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 10 }}
                         transition={{ duration: 0.25 }}
-                        className="absolute left-1/2 top-full mt-4 w-64 -translate-x-1/2
-                                   rounded-xl border border-[#4DD0E1]/30
-                                   bg-[#1C1B3E]/95 backdrop-blur-xl
-                                   shadow-[0_0_40px_rgba(77,208,225,0.15)]"
+                        className={`absolute left-1/2 top-full mt-4 w-64 -translate-x-1/2
+                                   rounded-xl border ${
+                                     currentProject === 'maria' ? 'border-white/30 bg-[#0E7E92]/95' :
+                                     currentProject === 'puntomovil' ? 'border-white/30 bg-[#2E7D32]/95' :
+                                     'border-[#4DD0E1]/30 bg-[#1C1B3E]/95'
+                                   } backdrop-blur-xl
+                                   shadow-[0_0_40px_rgba(77,208,225,0.15)]`}
                       >
                         <div className="p-5 space-y-2">
                           {item.dropdownItems.map((sub) => {
@@ -181,7 +256,7 @@ const Navbar: React.FC = () => {
                                 key={sub}
                                 to={route}
                                 className="block text-sm text-[#AAB7C4]
-                                           hover:text-[#4DD0E1]
+                                           hover:text-white
                                            transition-colors"
                                 onClick={() => setActiveDropdown(null)}
                               >
@@ -197,37 +272,80 @@ const Navbar: React.FC = () => {
               ))}
             </div>
 
-            {/* Botón Hamburguesa Móvil */}
+            {/* Botón Hamburguesa Móvil - Versión Minimalista */}
             <motion.button
               onClick={toggleMobileMenu}
-              className="md:hidden relative z-[60] w-12 h-12 flex items-center justify-center"
-              whileTap={{ scale: 0.9 }}
+              className={`md:hidden relative z-[60] w-10 h-10 flex items-center justify-center rounded-full ${
+                isScrolled || currentProject !== 'home' ? 'bg-white/20' : 'bg-black/10'
+              } backdrop-blur-sm border ${
+                currentProject === 'maria' && !isScrolled ? 'border-[#0E7E92]/30' :
+                currentProject === 'puntomovil' && !isScrolled ? 'border-[#2E7D32]/30' :
+                'border-white/20'
+              } hover:border-white/30 transition-all duration-300`}
+              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.05 }}
               aria-label={isMobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
             >
-              <div className="relative w-6 h-6">
+              <div className="relative w-5 h-5">
+                {/* Línea superior */}
                 <motion.span
-                  animate={isMobileMenuOpen ? 
-                    { rotate: 45, y: 9 } : 
-                    { rotate: 0, y: 0 }
+                  animate={isMobileMenuOpen ?
+                    {
+                      rotate: 45,
+                      y: 8,
+                      width: "100%"
+                    } :
+                    {
+                      rotate: 0,
+                      y: 0,
+                      width: "100%"
+                    }
                   }
-                  transition={{ duration: 0.3 }}
-                  className={`absolute top-0 left-0 w-full h-0.5 origin-center ${styles.buttonLines}`}
+                  transition={{
+                    duration: 0.3,
+                    ease: "easeInOut"
+                  }}
+                  className={`absolute top-0 left-0 w-full h-[2px] ${hamburgerColor} origin-center rounded-full`}
                 />
+
+                {/* Línea media */}
                 <motion.span
-                  animate={isMobileMenuOpen ? 
-                    { opacity: 0, x: -10 } : 
-                    { opacity: 1, x: 0 }
+                  animate={isMobileMenuOpen ?
+                    {
+                      opacity: 0,
+                      x: -5
+                    } :
+                    {
+                      opacity: 1,
+                      x: 0
+                    }
                   }
-                  transition={{ duration: 0.2 }}
-                  className={`absolute top-1/2 left-0 w-full h-0.5 -translate-y-1/2 ${styles.buttonLines}`}
+                  transition={{
+                    duration: 0.2,
+                    ease: "easeInOut"
+                  }}
+                  className={`absolute top-1/2 left-0 w-full h-[2px] ${hamburgerColor} -translate-y-1/2 rounded-full`}
                 />
+
+                {/* Línea inferior */}
                 <motion.span
-                  animate={isMobileMenuOpen ? 
-                    { rotate: -45, y: -9 } : 
-                    { rotate: 0, y: 0 }
+                  animate={isMobileMenuOpen ?
+                    {
+                      rotate: -45,
+                      y: -8,
+                      width: "100%"
+                    } :
+                    {
+                      rotate: 0,
+                      y: 0,
+                      width: "100%"
+                    }
                   }
-                  transition={{ duration: 0.3 }}
-                  className={`absolute bottom-0 left-0 w-full h-0.5 origin-center ${styles.buttonLines}`}
+                  transition={{
+                    duration: 0.3,
+                    ease: "easeInOut"
+                  }}
+                  className={`absolute bottom-0 left-0 w-full h-[2px] ${hamburgerColor} origin-center rounded-full`}
                 />
               </div>
             </motion.button>
@@ -248,7 +366,11 @@ const Navbar: React.FC = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="fixed inset-0 bg-[#1C1B3E]/95 backdrop-blur-xl z-[55] md:hidden"
+              className={`fixed inset-0 ${
+                currentProject === 'maria' ? 'bg-[#0E7E92]/95' :
+                currentProject === 'puntomovil' ? 'bg-[#2E7D32]/95' :
+                'bg-[#1C1B3E]/95'
+              } backdrop-blur-xl z-[55] md:hidden`}
               onClick={closeMobileMenu}
             />
 
@@ -257,7 +379,7 @@ const Navbar: React.FC = () => {
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
-              transition={{ 
+              transition={{
                 type: "spring",
                 damping: 25,
                 stiffness: 300
@@ -265,25 +387,36 @@ const Navbar: React.FC = () => {
               className="fixed inset-0 z-[60] md:hidden overflow-hidden"
             >
               {/* Contenido del modal - Scrollable */}
-              <div className="h-full w-full flex flex-col bg-gradient-to-b from-[#1C1B3E] via-[#0f0e29] to-[#1C1B3E]">
-                
+              <div className={`h-full w-full flex flex-col bg-gradient-to-b ${mobileMenuBg}`}>
+
                 {/* Cabecera fija */}
-                <div className="flex-shrink-0 p-6 border-b border-[#4DD0E1]/20 
-                              bg-gradient-to-b from-[#1C1B3E] to-transparent">
+                <div className={`flex-shrink-0 p-6 border-b ${
+                  currentProject === 'maria' ? 'border-white/20' :
+                  currentProject === 'puntomovil' ? 'border-white/20' :
+                  'border-[#4DD0E1]/20'
+                } bg-gradient-to-b ${
+                  currentProject === 'maria' ? 'from-[#0E7E92]' :
+                  currentProject === 'puntomovil' ? 'from-[#2E7D32]' :
+                  'from-[#1C1B3E]'
+                } to-transparent`}>
                   <div className="flex items-center justify-between">
                     <div>
                       <span className="text-2xl font-bold text-white">XIBERMEX</span>
-                      <span className="block text-sm text-[#4DD0E1]/80 mt-1">
+                      <span className="block text-sm text-white/90 mt-1">
                         Estrategias Tecnológicas
                       </span>
                     </div>
-                    
+
                     <button
                       onClick={closeMobileMenu}
-                      className="w-10 h-10 flex items-center justify-center
-                               rounded-full border border-[#4DD0E1]/30
-                               hover:border-[#4DD0E1] hover:bg-[#4DD0E1]/10
-                               transition-colors"
+                      className={`w-10 h-10 flex items-center justify-center
+                               rounded-full border ${
+                                 currentProject === 'maria' ? 'border-white/30' :
+                                 currentProject === 'puntomovil' ? 'border-white/30' :
+                                 'border-[#4DD0E1]/30'
+                               }
+                               hover:border-white hover:bg-white/10
+                               transition-colors`}
                       aria-label="Cerrar menú"
                     >
                       <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -302,9 +435,17 @@ const Navbar: React.FC = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: index * 0.1, duration: 0.4 }}
-                        className="bg-gradient-to-r from-transparent to-[#4DD0E1]/5 
-                                   rounded-2xl p-5 border border-[#4DD0E1]/10
-                                   shadow-lg"
+                        className={`bg-gradient-to-r from-transparent ${
+                          currentProject === 'maria' ? 'to-white/10' :
+                          currentProject === 'puntomovil' ? 'to-white/10' :
+                          'to-[#4DD0E1]/5'
+                        } 
+                                   rounded-2xl p-5 border ${
+                                     currentProject === 'maria' ? 'border-white/20' :
+                                     currentProject === 'puntomovil' ? 'border-white/20' :
+                                     'border-[#4DD0E1]/10'
+                                   }
+                                   shadow-lg`}
                       >
                         <button
                           onClick={() => setActiveDropdown(
@@ -313,8 +454,11 @@ const Navbar: React.FC = () => {
                           className="flex items-center justify-between w-full text-left"
                         >
                           <div className="flex items-center space-x-4">
-                            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#4DD0E1]/20 to-[#00838F]/20 
-                                          flex items-center justify-center">
+                            <div className={`w-10 h-10 rounded-lg ${
+                              currentProject === 'maria' ? 'bg-gradient-to-br from-white/20 to-white/10' :
+                              currentProject === 'puntomovil' ? 'bg-gradient-to-br from-white/20 to-white/10' :
+                              'bg-gradient-to-br from-[#4DD0E1]/20 to-[#00838F]/20'
+                            } flex items-center justify-center`}>
                               <span className="text-lg text-white">
                                 {index === 0 ? '🚀' : index === 1 ? '💡' : '📚'}
                               </span>
@@ -326,7 +470,7 @@ const Navbar: React.FC = () => {
                           <motion.span
                             animate={{ rotate: activeDropdown === item.name ? 180 : 0 }}
                             transition={{ duration: 0.3 }}
-                            className="text-[#4DD0E1] text-xl"
+                            className="text-white text-xl"
                           >
                             ▼
                           </motion.span>
@@ -356,23 +500,33 @@ const Navbar: React.FC = () => {
                                       <Link
                                         to={route}
                                         className={`block py-4 px-5 rounded-xl
-                                                 ${isProject ? 
-                                                   'bg-gradient-to-r from-[#4DD0E1]/10 to-[#00838F]/10 border-[#4DD0E1]/40' : 
-                                                   'bg-gradient-to-r from-transparent to-[#4DD0E1]/5 border-[#4DD0E1]/20'
-                                                 }
+                                                 ${isProject ?
+                                            `bg-gradient-to-r ${
+                                              currentProject === 'maria' ? 'from-white/20 to-white/10' :
+                                              currentProject === 'puntomovil' ? 'from-white/20 to-white/10' :
+                                              'from-[#4DD0E1]/10 to-[#00838F]/10'
+                                            } border-white/40` :
+                                            'bg-gradient-to-r from-transparent to-white/5 border-white/20'
+                                          }
                                                  border
-                                                 text-white hover:text-[#4DD0E1]
-                                                 hover:border-[#4DD0E1]
+                                                 text-white hover:text-white/90
+                                                 hover:border-white
                                                  transition-all duration-300
                                                  flex items-center justify-between`}
                                         onClick={closeMobileMenu}
                                       >
                                         <div className="flex items-center">
-                                          <div className={`w-2 h-2 rounded-full mr-3 ${isProject ? 'bg-[#4DD0E1]' : 'bg-white/60'}`} />
+                                          <div className={`w-2 h-2 rounded-full mr-3 ${
+                                            isProject ? 'bg-white' : 'bg-white/60'
+                                          }`} />
                                           <span className="font-medium">{sub}</span>
                                         </div>
                                         {isProject && (
-                                          <span className="text-xs px-2 py-1 rounded-full bg-[#4DD0E1]/20 text-[#4DD0E1]">
+                                          <span className={`text-xs px-2 py-1 rounded-full ${
+                                            currentProject === 'maria' ? 'bg-white/30' :
+                                            currentProject === 'puntomovil' ? 'bg-white/30' :
+                                            'bg-[#4DD0E1]/20'
+                                          } text-white`}>
                                             Proyecto
                                           </span>
                                         )}
@@ -390,12 +544,19 @@ const Navbar: React.FC = () => {
                 </div>
 
                 {/* Pie fijo */}
-                <div className="flex-shrink-0 p-6 border-t border-[#4DD0E1]/20
-                              bg-gradient-to-b from-transparent to-[#1C1B3E]">
-                  <p className="text-sm text-center text-[#AAB7C4]/60">
+                <div className={`flex-shrink-0 p-6 border-t ${
+                  currentProject === 'maria' ? 'border-white/20' :
+                  currentProject === 'puntomovil' ? 'border-white/20' :
+                  'border-[#4DD0E1]/20'
+                } bg-gradient-to-b from-transparent ${
+                  currentProject === 'maria' ? 'to-[#0E7E92]' :
+                  currentProject === 'puntomovil' ? 'to-[#2E7D32]' :
+                  'to-[#1C1B3E]'
+                }`}>
+                  <p className="text-sm text-center text-white/60">
                     © {new Date().getFullYear()} XIBERMEX - Estrategias Tecnológicas
                   </p>
-                  <p className="text-xs text-center text-[#AAB7C4]/40 mt-2">
+                  <p className="text-xs text-center text-white/40 mt-2">
                     Todos los derechos reservados
                   </p>
                 </div>
