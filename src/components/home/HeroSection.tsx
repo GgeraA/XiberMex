@@ -58,29 +58,59 @@ const HeroSection = () => {
             viewport={{ once: false, amount: 0.6 }}
           >
 
-            {/* TITULO */}
-            <motion.h1
+            {/* BRAND BLOCK */}
+            <motion.div
               variants={textItem}
-              animate={{
-                textShadow: [
-                  '0 0 20px rgba(77,208,225,.4)',
-                  '0 0 45px rgba(77,208,225,.8)',
-                  '0 0 20px rgba(77,208,225,.4)',
-                ],
-                scale: [1, 1.02, 1],
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: 'easeInOut',
-              }}
-              className="
-                text-5xl md:text-7xl font-bold uppercase
-                tracking-[0.35em] text-white
-              "
+              className="flex flex-col items-center"
             >
-              XIBERMEX
-            </motion.h1>
+
+              {/* LOGO */}
+              <motion.img
+                src="/images/LogoXibermexOficialSolo.jpeg"
+                alt="Xibermex logo"
+                className="
+                  w-20 md:w-28 mb-6
+                  drop-shadow-[0_0_25px_rgba(77,208,225,.6)]
+                "
+                animate={{
+                  filter: [
+                    'drop-shadow(0 0 15px rgba(77,208,225,.4))',
+                    'drop-shadow(0 0 35px rgba(77,208,225,.8))',
+                    'drop-shadow(0 0 15px rgba(77,208,225,.4))',
+                  ],
+                  scale: [1, 1.05, 1],
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                }}
+              />
+
+              {/* TEXTO */}
+              <motion.h1
+                animate={{
+                  textShadow: [
+                    '0 0 20px rgba(77,208,225,.4)',
+                    '0 0 45px rgba(77,208,225,.8)',
+                    '0 0 20px rgba(77,208,225,.4)',
+                  ],
+                  scale: [1, 1.02, 1],
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                }}
+                className="
+                  text-5xl md:text-7xl font-bold uppercase
+                  tracking-[0.35em] text-white
+                "
+              >
+                XIBERMEX
+              </motion.h1>
+
+            </motion.div>
 
             {/* ESLOGAN */}
             <motion.p
