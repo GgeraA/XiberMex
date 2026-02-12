@@ -49,7 +49,7 @@ const HeroSection = () => {
         <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(90deg,transparent,rgba(77,208,225,.08),transparent)] animate-scan" />
 
         {/* CONTENIDO */}
-        <div className="relative z-10 h-full flex items-center justify-center px-6 text-center">
+        <div className="relative z-10 h-full flex items-center justify-center px-6 text-center -translate-y-8 md:-translate-y-16">
           <motion.div
             className="max-w-4xl"
             variants={textContainer}
@@ -66,10 +66,10 @@ const HeroSection = () => {
 
               {/* LOGO */}
               <motion.img
-                src="/images/LogoXibermexOficialSolo.jpeg"
+                src="/images/LogoXibermexNoFondo.png"
                 alt="Xibermex logo"
                 className="
-                  w-20 md:w-28 mb-6
+                  w-28 md:w-40 mb-1
                   drop-shadow-[0_0_25px_rgba(77,208,225,.6)]
                 "
                 animate={{
@@ -138,7 +138,7 @@ const HeroSection = () => {
             {/* BOTONES */}
             <motion.div
               variants={textItem}
-              className="mt-12 flex flex-wrap justify-center gap-6"
+              className="mt-12 flex flex-wrap justify-center gap-9"
             >
               <motion.a
                 href="#contacto"

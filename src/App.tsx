@@ -1,6 +1,7 @@
 // src/App.tsx
 import Navbar from './components/layout/Navbar';
 import AppRoutes from './routes/AppRoutes';
+import Footer from './components/layout/Footer';
 
 function App() {
   return (
@@ -9,7 +10,7 @@ function App() {
       <main className="flex-grow">
         <AppRoutes />
       </main>
-      {/* <Footer /> */}
+      <Footer /> 
     </div>
   );
 }
