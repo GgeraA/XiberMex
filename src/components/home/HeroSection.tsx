@@ -49,7 +49,7 @@ const HeroSection = () => {
         <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(90deg,transparent,rgba(77,208,225,.08),transparent)] animate-scan" />
 
         {/* CONTENIDO */}
-        <div className="relative z-10 h-full flex items-center justify-center px-6 text-center">
+        <div className="relative z-10 h-full flex items-center justify-center px-6 text-center -translate-y-8 md:-translate-y-16">
           <motion.div
             className="max-w-4xl"
             variants={textContainer}
@@ -58,29 +58,59 @@ const HeroSection = () => {
             viewport={{ once: false, amount: 0.6 }}
           >
 
-            {/* TITULO */}
-            <motion.h1
+            {/* BRAND BLOCK */}
+            <motion.div
               variants={textItem}
-              animate={{
-                textShadow: [
-                  '0 0 20px rgba(77,208,225,.4)',
-                  '0 0 45px rgba(77,208,225,.8)',
-                  '0 0 20px rgba(77,208,225,.4)',
-                ],
-                scale: [1, 1.02, 1],
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: 'easeInOut',
-              }}
-              className="
-                text-5xl md:text-7xl font-bold uppercase
-                tracking-[0.35em] text-white
-              "
+              className="flex flex-col items-center"
             >
-              XIBERMEX
-            </motion.h1>
+
+              {/* LOGO */}
+              <motion.img
+                src="/images/LogoXibermexNoFondo.png"
+                alt="Xibermex logo"
+                className="
+                  w-28 md:w-40 mb-1
+                  drop-shadow-[0_0_25px_rgba(77,208,225,.6)]
+                "
+                animate={{
+                  filter: [
+                    'drop-shadow(0 0 15px rgba(77,208,225,.4))',
+                    'drop-shadow(0 0 35px rgba(77,208,225,.8))',
+                    'drop-shadow(0 0 15px rgba(77,208,225,.4))',
+                  ],
+                  scale: [1, 1.05, 1],
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                }}
+              />
+
+              {/* TEXTO */}
+              <motion.h1
+                animate={{
+                  textShadow: [
+                    '0 0 20px rgba(77,208,225,.4)',
+                    '0 0 45px rgba(77,208,225,.8)',
+                    '0 0 20px rgba(77,208,225,.4)',
+                  ],
+                  scale: [1, 1.02, 1],
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                }}
+                className="
+                  text-5xl md:text-7xl font-bold uppercase
+                  tracking-[0.35em] text-white
+                "
+              >
+                XIBERMEX
+              </motion.h1>
+
+            </motion.div>
 
             {/* ESLOGAN */}
             <motion.p
@@ -108,7 +138,7 @@ const HeroSection = () => {
             {/* BOTONES */}
             <motion.div
               variants={textItem}
-              className="mt-12 flex flex-wrap justify-center gap-6"
+              className="mt-12 flex flex-wrap justify-center gap-9"
             >
               <motion.a
                 href="#contacto"

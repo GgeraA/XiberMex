@@ -6,13 +6,13 @@ import SectionFade from '../ui/SectionFade'
 const projects = [
   {
     title: 'MarIA',
-    image: '/images/maria.jpeg',
+    image: '/images/LogoMariaOficial.jpeg',
     link: '/proyectos/maria',
     category: 'Inteligencia Artificial',
   },
   {
     title: 'Punto Móvil',
-    image: '/images/puntomovil.jpeg',
+    image: '/images/LogoMariaOficial2.jpeg',
     link: '/proyectos/puntomovil',
     category: 'Aplicación Móvil',
   },

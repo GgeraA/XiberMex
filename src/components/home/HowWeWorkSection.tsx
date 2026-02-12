@@ -96,11 +96,10 @@ const HowWeWorkSection = () => {
           className="relative flex flex-col gap-16 md:gap-24"
         >
           {/* Línea central desktop */}
-          <div className="absolute left-1/2 top-0 h-full w-px bg-gradient-to-b from-[#4DD0E1] to-transparent hidden md:block" />
+          <div className="absolute left-1/2 top-12 bottom-12 w-px bg-gradient-to-b from-[#4DD0E1] to-transparent hidden md:block" />
 
           {/* Línea lateral mobile */}
-          <div className="absolute left-4 top-0 h-full w-px bg-gradient-to-b from-[#4DD0E1] to-transparent md:hidden" />
-
+          <div className="absolute left-4 top-12 bottom-12 w-px bg-gradient-to-b from-[#4DD0E1] to-transparent md:hidden" />
           {steps.map((step, index) => {
             const isLeft = index % 2 === 0;
 

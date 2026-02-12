@@ -1,174 +1,203 @@
-// src/components/layout/Navbar.tsx
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import { motion, AnimatePresence } from 'framer-motion'
 
-const Navbar: React.FC = () => {
-  const [activeDropdown, setActiveDropdown] = React.useState<string | null>(null);
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+export default function Navbar() {
+  const [open, setOpen] = useState(false)
+  const [active, setActive] = useState<string | null>(null)
+  const [scrolled, setScrolled] = useState(false)
 
-  const mainMenuItems = [
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 30)
+    window.addEventListener('scroll', onScroll)
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  const menu = [
     {
       name: 'PROYECTOS',
-      dropdownItems: ['MarIA', 'Punto móvil'],
+      items: ['MarIA', 'Punto móvil'],
     },
     {
       name: 'SOLUCIONES',
-      dropdownItems: [
+      items: [
         'Consultoría IT',
         'Transformación digital',
-        'Automatización de procesos',
-        'Business Intelligence',
-        'Ciberseguridad',
+        'Automatización',
       ],
     },
     {
       name: 'RECURSOS',
-      dropdownItems: [
-        'Blog técnico',
-        'Documentación',
-        'Tutoriales',
-        'Casos de éxito',
-        'Centro de ayuda',
-      ],
+      items: ['Blog', 'Documentación'],
     },
-  ];
+  ]
 
-  const projectRoutes: Record<string, string> = {
+  const routes: Record<string, string> = {
     MarIA: '/proyectos/maria',
     'Punto móvil': '/proyectos/puntomovil',
-  };
+    'Consultoría IT': '/soluciones/consultoria',
+    'Transformación digital': '/soluciones/transformacion',
+    Automatización: '/soluciones/automatizacion',
+    Blog: '/blog',
+    Documentación: '/docs',
+  }
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-transparent backdrop-blur-md">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex items-center justify-between h-16">
+    <>
+      <nav
+        className={`
+        fixed top-0 left-0 w-full z-50 transition-all duration-500
+        ${scrolled
+            ? 'bg-[#0A1024]/70 backdrop-blur-xl border-b border-[#4DD0E1]/20'
+            : 'bg-transparent'}
+      `}
+      >
+        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between relative">
 
-          {/* Logo */}
-          <Link to="/" className="group">
-            <span className="text-2xl font-bold tracking-wide text-white">
-              XIBERMEX
-            </span>
-            <span className="block text-xs tracking-widest text-[#4DD0E1]/80">
-              Estrategias Tecnológicas
-            </span>
-          </Link>
+          {/* LOGO */}
+          <Link to="/" className="flex items-center">
+  <motion.img
+    src="/images/Logooo.png"
+    alt="Xibermex"
+    className="
+      h-17 md:h-20 lg:h-24
+      w-auto
+      object-contain
+      drop-shadow-[0_0_18px_rgba(77,208,225,0.55)]
+    "
+    initial={{ opacity: 0, scale: 0.95 }}
+    animate={{ opacity: 1, scale: 1 }}
+    transition={{ duration: 0.6 }}
+    whileHover={{ scale: 1.05 }}
+  />
+</Link>
 
-          {/* Desktop menu */}
-          <div className="hidden md:flex items-center gap-10 absolute left-1/2 -translate-x-1/2">
-            {mainMenuItems.map((item) => (
+
+          {/* DESKTOP MENU */}
+          <div className="hidden md:flex gap-12 absolute left-1/2 -translate-x-1/2">
+
+            {menu.map(m => (
               <div
-                key={item.name}
+                key={m.name}
+                onMouseEnter={() => setActive(m.name)}
+                onMouseLeave={() => setActive(null)}
                 className="relative"
-                onMouseEnter={() => setActiveDropdown(item.name)}
-                onMouseLeave={() => setActiveDropdown(null)}
               >
-                <motion.span
-                  whileHover={{ color: '#4DD0E1' }}
-                  className="cursor-pointer text-sm tracking-widest text-white uppercase"
-                >
-                  {item.name}
-                </motion.span>
+                <span className="text-white tracking-widest cursor-pointer hover:text-[#4DD0E1] transition">
+                  {m.name}
+                </span>
 
                 <AnimatePresence>
-                  {activeDropdown === item.name && (
+                  {active === m.name && (
                     <motion.div
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
-                      transition={{ duration: 0.25 }}
-                      className="absolute left-1/2 top-full mt-4 w-64 -translate-x-1/2
-                      rounded-xl border border-[#4DD0E1]/30
-                      bg-[#1C1B3E]/95 backdrop-blur-xl"
+                      transition={{ duration: .25 }}
+                      className="
+                        absolute top-full mt-4 left-1/2 -translate-x-1/2
+                        bg-[#0B1025]/90 backdrop-blur-xl
+                        border border-[#4DD0E1]/30
+                        rounded-xl w-60
+                      "
                     >
                       <div className="p-5 space-y-2">
-                        {item.dropdownItems.map((sub) => (
+                        {m.items.map(i => (
                           <Link
-                            key={sub}
-                            to={projectRoutes[sub] || '#'}
+                            key={i}
+                            to={routes[i]}
                             className="block text-sm text-[#AAB7C4] hover:text-[#4DD0E1]"
                           >
-                            {sub}
+                            {i}
                           </Link>
                         ))}
                       </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
+
               </div>
             ))}
+
           </div>
 
-          {/* Hamburger */}
+          {/* HAMBURGER */}
           <button
-            onClick={() => setMobileOpen(true)}
-            className="md:hidden text-[#4DD0E1] text-2xl"
+            onClick={() => setOpen(true)}
+            className="
+            md:hidden w-10 h-10 rounded-full
+            bg-white/10 backdrop-blur
+            border border-white/20
+            flex items-center justify-center
+          "
           >
             ☰
           </button>
         </div>
-      </div>
+      </nav>
 
-      {/* MOBILE PANEL */}
+      {/* MOBILE */}
       <AnimatePresence>
-        {mobileOpen && (
+        {open && (
           <motion.div
-            initial={{ opacity: 0, x: '100%' }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: '100%' }}
-            transition={{ duration: 0.4 }}
-            className="fixed inset-0 bg-[#0B0E2A]/95 backdrop-blur-xl z-50"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[60] bg-[#050914]/95 backdrop-blur-xl"
           >
-            <div className="p-8">
+            <motion.div
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ duration: .4 }}
+              className="p-10"
+            >
 
-              {/* Close */}
               <button
-                onClick={() => setMobileOpen(false)}
-                className="text-[#4DD0E1] text-xl mb-10"
+                onClick={() => setOpen(false)}
+                className="text-white text-xl mb-10"
               >
                 ✕
               </button>
 
-              {mainMenuItems.map((item) => (
-                <div key={item.name} className="mb-8">
-                  <button
-                    onClick={() =>
-                      setActiveDropdown(activeDropdown === item.name ? null : item.name)
-                    }
-                    className="text-white tracking-widest uppercase mb-3"
+              {menu.map(m => (
+                <div key={m.name} className="mb-8">
+                  <p
+                    onClick={() => setActive(active === m.name ? null : m.name)}
+                    className="text-[#4DD0E1] tracking-widest cursor-pointer"
                   >
-                    {item.name}
-                  </button>
+                    {m.name}
+                  </p>
 
                   <AnimatePresence>
-                    {activeDropdown === item.name && (
+                    {active === m.name && (
                       <motion.div
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        className="pl-4 space-y-2"
+                        className="pl-4 mt-3 space-y-2"
                       >
-                        {item.dropdownItems.map((sub) => (
+                        {m.items.map(i => (
                           <Link
-                            key={sub}
-                            onClick={() => setMobileOpen(false)}
-                            to={projectRoutes[sub] || '#'}
+                            key={i}
+                            to={routes[i]}
+                            onClick={() => setOpen(false)}
                             className="block text-[#AAB7C4]"
                           >
-                            {sub}
+                            {i}
                           </Link>
                         ))}
                       </motion.div>
                     )}
                   </AnimatePresence>
+
                 </div>
               ))}
-            </div>
+
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
-  );
-};
-
-export default Navbar;
+    </>
+  )
+}
