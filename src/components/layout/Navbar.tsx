@@ -169,6 +169,7 @@ export default function Navbar() {
                     {m.name}
                   </p>
 
+                  {/* Dropdown Desktop */}
                   <AnimatePresence>
                     {active === m.name && (
                       <motion.div
