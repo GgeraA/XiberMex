@@ -63,7 +63,6 @@ export default function Navbar() {
       h-17 md:h-20 lg:h-24
       w-auto
       object-contain
-      drop-shadow-[0_0_18px_rgba(77,208,225,0.55)]
     "
     initial={{ opacity: 0, scale: 0.95 }}
     animate={{ opacity: 1, scale: 1 }}
