@@ -2,6 +2,7 @@
 import Navbar from './components/layout/Navbar';
 import AppRoutes from './routes/AppRoutes';
 import Footer from './components/layout/Footer';
+import ScrollToTopButton from './components/ui/ScrollToTopButton'
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <AppRoutes />
       </main>
       <Footer /> 
+      <ScrollToTopButton />
     </div>
   );
 }
