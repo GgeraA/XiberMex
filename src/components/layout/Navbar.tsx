@@ -52,24 +52,24 @@ export default function Navbar() {
             : 'bg-transparent'}
       `}
       >
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between relative">
+        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between relative mt-4">
 
           {/* LOGO */}
           <Link to="/" className="flex items-center">
-  <motion.img
-    src="/images/Logooo.png"
-    alt="Xibermex"
-    className="
-      h-17 md:h-20 lg:h-24
+            <motion.img
+              src="/images/Logooo.png"
+              alt="Xibermex"
+              className="
+      sm:h-19 md:h-20 lg:h-40
       w-auto
       object-contain
     "
-    initial={{ opacity: 0, scale: 0.95 }}
-    animate={{ opacity: 1, scale: 1 }}
-    transition={{ duration: 0.6 }}
-    whileHover={{ scale: 1.05 }}
-  />
-</Link>
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6 }}
+              whileHover={{ scale: 1.05 }}
+            />
+          </Link>
 
 
           {/* DESKTOP MENU */}

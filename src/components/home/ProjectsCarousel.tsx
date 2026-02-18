@@ -12,13 +12,13 @@ const projects = [
   },
   {
     title: 'Punto Móvil',
-    image: '/images/LogoMariaOficial2.jpeg',
+    image: '/images/puntomovil.jpeg',
     link: '/proyectos/puntomovil',
     category: 'Aplicación Móvil',
   },
 ]
 
-const AUTO = 3000
+const AUTO = 6000
 
 export default function ProjectsCarousel() {
   const [index, setIndex] = useState(0)
