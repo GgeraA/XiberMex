@@ -4,22 +4,22 @@ const services = [
   {
     title: 'Desarrollo Web',
     description: 'Soluciones web responsivas, escalables y personalizadas.',
-    icon: '/icons/web-dev.svg',
+    icon: '/icons/LogoDesaWeb.png',
   },
   {
     title: 'Inteligencia Artificial',
     description: 'Automatiza tus procesos con IA y Machine Learning.',
-    icon: '/icons/ai.svg',
+    icon: '/icons/LogoIA.png',
   },
   {
     title: 'Consultoría IT',
     description: 'Estrategias tecnológicas para empresas modernas.',
-    icon: '/icons/consulting.svg',
+    icon: '/icons/LogoConsul.png',
   },
   {
     title: 'Ciberseguridad',
     description: 'Protege tus sistemas y datos críticos.',
-    icon: '/icons/cybersecurity.svg',
+    icon: '/icons/LogosSeguridad.png',
   },
 ];
 
@@ -115,7 +115,7 @@ overflow-hidden
                 alt={service.title}
                 whileHover={{ scale: 1.1 }}
                 transition={{ type: 'spring', stiffness: 300 }}
-                className="w-14 h-14 md:w-16 md:h-16 mb-6 mx-auto"
+                className="w-20 h-20 md:w-24 md:h-24 mb-6 mx-auto"
               />
 
               {/* TEXTO */}
