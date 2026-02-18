@@ -6,19 +6,19 @@ import SectionFade from '../ui/SectionFade'
 const projects = [
   {
     title: 'MarIA',
-    image: '/images/LogoMariaOficial.jpeg',
+    image: '/images/maria2_1.jpg',
     link: '/proyectos/maria',
     category: 'Inteligencia Artificial',
   },
   {
     title: 'Punto Móvil',
-    image: '/images/puntomovil.jpeg',
+    image: '/images/punto_movil_t.jpeg',
     link: '/proyectos/puntomovil',
     category: 'Aplicación Móvil',
   },
 ]
 
-const AUTO = 6000
+const AUTO = 5000
 
 export default function ProjectsCarousel() {
   const [index, setIndex] = useState(0)
@@ -78,7 +78,7 @@ export default function ProjectsCarousel() {
                   <motion.div
                     className="absolute top-0 left-0 h-full w-20"
                     animate={{ x: ['-40%', '140%'] }}
-                    transition={{ duration: 2.5, repeat: Infinity, ease: 'linear' }}
+                    transition={{ duration: 5, repeat: Infinity, ease: 'linear' }}
                     style={{
                       background:
                         'linear-gradient(90deg, transparent, #4DD0E1, transparent)',
@@ -105,8 +105,8 @@ export default function ProjectsCarousel() {
             </motion.div>
           </AnimatePresence>
 
-          {/* IMAGEN */}
-          <div className="relative h-[360px]">
+           {/* IMAGEN */}
+          <div className="relative w-full h-[400px] rounded-xl flex items-center justify-center">
 
             <AnimatePresence mode="wait">
               <motion.img
@@ -116,8 +116,8 @@ export default function ProjectsCarousel() {
                 animate={{ opacity: 1, x: 0, scale: 1 }}
                 exit={{ opacity: 0, x: -120, scale: .9 }}
                 transition={{ duration: .9, ease: 'easeInOut' }}
-                className="absolute inset-0 w-full h-full object-cover rounded-xl
-                border border-white/10 shadow-[0_0_40px_rgba(77,208,225,0.25)]"
+                className="absolute inset-0 w-full h-full object-contain rounded-xl
+                 shadow-[0_0_40px_rgba(77,208,225,0.25)] "
               />
             </AnimatePresence>
 
@@ -130,9 +130,8 @@ export default function ProjectsCarousel() {
             <button
               key={i}
               onClick={() => setIndex(i)}
-              className={`h-2 w-8 rounded-full transition ${
-                i === index ? 'bg-[#4DD0E1]' : 'bg-white/20'
-              }`}
+              className={`h-2 w-8 rounded-full transition ${i === index ? 'bg-[#4DD0E1]' : 'bg-white/20'
+                }`}
             />
           ))}
         </div>
