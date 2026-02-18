@@ -382,12 +382,12 @@ const HeroSection = () => {
 
                     {/* CONTENIDO PRINCIPAL - IMAGEN */}
                     <div className="flex-1 flex items-center justify-center p-4">
-                      <div className="relative w-full h-full rounded-lg overflow-hidden border border-gray-700/60 shadow-inner">
+                      <div className="relative w-full rounded-lg overflow-hidden border border-gray-700/60 shadow-inner">
                         {/* IMAGEN DE PUNTO MÓVIL */}
                         <img
-                          src="/images/puntomovil.jpeg"
+                          src="/images/punto_movil_t.jpeg"
                           alt="Punto Móvil App Interface"
-                          className="w-full h-full object-cover"
+                          className="w-full object-cover"
                         />
 
                         {/* OVERLAY TECNOLÓGICO */}

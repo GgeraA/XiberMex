@@ -110,7 +110,7 @@ const WhatIsSection = () => {
                 <div className="relative h-96 flex items-center justify-center overflow-hidden">
                   {/* IMAGEN PRINCIPAL */}
                   <motion.img
-                    src="/images/puntomovil.jpeg"
+                    src="/images/punto_movil_t.jpeg"
                     alt="Punto Móvil App"
                     className="w-full object-cover group-hover:scale-105 transition-transform duration-700"
                     initial={{ scale: 1 }}
