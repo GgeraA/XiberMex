@@ -9,12 +9,14 @@ const projects = [
     image: '/images/maria2_1.jpg',
     link: '/proyectos/maria',
     category: 'Inteligencia Artificial',
+    scale: 1,
   },
   {
     title: 'Punto Móvil',
     image: '/images/punto_movil_t.jpeg',
     link: '/proyectos/puntomovil',
     category: 'Aplicación Móvil',
+    scale: 1.2,
   },
 ]
 
@@ -105,23 +107,43 @@ export default function ProjectsCarousel() {
             </motion.div>
           </AnimatePresence>
 
-           {/* IMAGEN */}
-          <div className="relative w-full h-[400px] rounded-xl flex items-center justify-center">
+{/* IMAGEN */}
+<div className="
+  relative
+  w-full
+  h-[260px]
+  sm:h-[320px]
+  md:h-[400px]
+  flex
+  items-center
+  justify-center
+">
 
-            <AnimatePresence mode="wait">
-              <motion.img
-                key={index}
-                src={projects[index].image}
-                initial={{ opacity: 0, x: 120, scale: .95 }}
-                animate={{ opacity: 1, x: 0, scale: 1 }}
-                exit={{ opacity: 0, x: -120, scale: .9 }}
-                transition={{ duration: .9, ease: 'easeInOut' }}
-                className="absolute inset-0 w-full h-full object-contain rounded-xl
-                 shadow-[0_0_40px_rgba(77,208,225,0.25)] "
-              />
-            </AnimatePresence>
+  <AnimatePresence mode="wait">
+    <motion.img
+  key={index}
+  src={projects[index].image}
+  initial={{ opacity: 0, x: 120, scale: .95 }}
+  animate={{ 
+    opacity: 1, 
+    x: 0, 
+    scale: projects[index].scale 
+  }}
+  exit={{ opacity: 0, x: -120, scale: .9 }}
+  transition={{ duration: .9, ease: 'easeInOut' }}
+  className="
+    max-h-[220px]
+    sm:max-h-[280px]
+    md:max-h-[340px]
+    w-auto
+    object-contain
+    rounded-xl
+    drop-shadow-[0_0_40px_rgba(77,208,225,0.25)]
+  "
+/>
+  </AnimatePresence>
 
-          </div>
+</div>
         </div>
 
         {/* indicadores */}
