@@ -158,7 +158,7 @@ const ProblemStatementSection = () => {
                     className="text-right"
                   >
                     <motion.div 
-                      className="text-4xl font-bold bg-gradient-to-r bg-clip-text text-transparent"
+                      className="text-4xl font-bold bg-gradient-to-r bg-clip-text text-gray-200"
                       style={{ backgroundImage: `linear-gradient(to right, ${problem.gradient})` }}
                       animate={hoveredCard === index ? { 
                         scale: [1, 1.05, 1],
