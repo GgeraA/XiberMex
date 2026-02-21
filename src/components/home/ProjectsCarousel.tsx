@@ -6,21 +6,19 @@ import SectionFade from '../ui/SectionFade'
 const projects = [
   {
     title: 'MarIA',
-    image: '/images/maria2_1.jpg',
+    image: '/images/LogoMariaOficial.jpeg',
     link: '/proyectos/maria',
     category: 'Inteligencia Artificial',
-    scale: 1,
   },
   {
     title: 'Punto Móvil',
-    image: '/images/punto_movil_t.jpeg',
+    image: '/images/puntomovil_22.png',
     link: '/proyectos/puntomovil',
     category: 'Aplicación Móvil',
-    scale: 1.2,
   },
 ]
 
-const AUTO = 5000
+const AUTO = 3000
 
 export default function ProjectsCarousel() {
   const [index, setIndex] = useState(0)
@@ -80,7 +78,7 @@ export default function ProjectsCarousel() {
                   <motion.div
                     className="absolute top-0 left-0 h-full w-20"
                     animate={{ x: ['-40%', '140%'] }}
-                    transition={{ duration: 5, repeat: Infinity, ease: 'linear' }}
+                    transition={{ duration: 2.5, repeat: Infinity, ease: 'linear' }}
                     style={{
                       background:
                         'linear-gradient(90deg, transparent, #4DD0E1, transparent)',
@@ -107,43 +105,23 @@ export default function ProjectsCarousel() {
             </motion.div>
           </AnimatePresence>
 
-{/* IMAGEN */}
-<div className="
-  relative
-  w-full
-  h-[260px]
-  sm:h-[320px]
-  md:h-[400px]
-  flex
-  items-center
-  justify-center
-">
+          {/* IMAGEN */}
+          <div className="relative h-[360px]">
 
-  <AnimatePresence mode="wait">
-    <motion.img
-  key={index}
-  src={projects[index].image}
-  initial={{ opacity: 0, x: 120, scale: .95 }}
-  animate={{ 
-    opacity: 1, 
-    x: 0, 
-    scale: projects[index].scale 
-  }}
-  exit={{ opacity: 0, x: -120, scale: .9 }}
-  transition={{ duration: .9, ease: 'easeInOut' }}
-  className="
-    max-h-[220px]
-    sm:max-h-[280px]
-    md:max-h-[340px]
-    w-auto
-    object-contain
-    rounded-xl
-    drop-shadow-[0_0_40px_rgba(77,208,225,0.25)]
-  "
-/>
-  </AnimatePresence>
+            <AnimatePresence mode="wait">
+              <motion.img
+                key={index}
+                src={projects[index].image}
+                initial={{ opacity: 0, x: 120, scale: .95 }}
+                animate={{ opacity: 1, x: 0, scale: 1 }}
+                exit={{ opacity: 0, x: -120, scale: .9 }}
+                transition={{ duration: .9, ease: 'easeInOut' }}
+                className="absolute inset-0 w-full h-full object-cover rounded-xl
+                border border-white/10 shadow-[0_0_40px_rgba(77,208,225,0.25)]"
+              />
+            </AnimatePresence>
 
-</div>
+          </div>
         </div>
 
         {/* indicadores */}
@@ -152,8 +130,9 @@ export default function ProjectsCarousel() {
             <button
               key={i}
               onClick={() => setIndex(i)}
-              className={`h-2 w-8 rounded-full transition ${i === index ? 'bg-[#4DD0E1]' : 'bg-white/20'
-                }`}
+              className={`h-2 w-8 rounded-full transition ${
+                i === index ? 'bg-[#4DD0E1]' : 'bg-white/20'
+              }`}
             />
           ))}
         </div>
